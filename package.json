@@ -2,9 +2,8 @@
   "name": "@m50/data-structures",
   "version": "1.0.0",
   "description": "Implementations of data structures using TypeScript",
-  "main": "index.js",
   "scripts": {
-    "build": "tsc index.ts structures/*.ts --outDir js/",
+    "build": "tsc structures/*.ts --outDir js/",
     "watch": "npm run build -- --watch",
     "test": "jest",
     "test:watchAll": "jest --watchAll",
