@@ -1,6 +1,6 @@
 # Data Structures [TS]
 
-![Test](https://github.com/m50/ts-data-structures/workflows/Test/badge.svg)
+![Test](https://github.com/m50/ts-data-structures/workflows/Node/badge.svg)
 
 This is just a learning exercise for me, implementing common data structures in
 TypeScript as I learn them.
