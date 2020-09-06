@@ -20,3 +20,13 @@ it('can dequeue', () => {
   expect(queue.dequeue()).toBe(1);
   expect(queue.size()).toBe(2);
 })
+
+it('can be processed', () => {
+  const vals = [1, 2, 3];
+  const q = new Queue<number>(vals);
+  let idx = 0;
+  q.process((val) => {
+    expect(val).toBe(vals[idx]);
+    idx++;
+  })
+})

@@ -8,8 +8,11 @@ export class Queue<T> {
   }
 
   dequeue(): T | undefined {
-    var ret = this._list.first();
-    this._list.removeAt(0);
+    var ret = this.peek();
+    if (typeof ret !== 'undefined') {
+      this._list.removeAt(0);
+    }
+
     return ret;
   }
 
@@ -27,5 +30,13 @@ export class Queue<T> {
 
   size(): number {
     return this._list.count;
+  }
+
+  process(callback: (val: T) => void): void {
+    let p = this.dequeue();
+    while (typeof p !== 'undefined') {
+      callback(p);
+      p = this.dequeue();
+    }
   }
 }

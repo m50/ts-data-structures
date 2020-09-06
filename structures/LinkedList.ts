@@ -119,7 +119,9 @@ export class LinkedList<T> {
     let prev = this._getNode(index - 1);
     let cur = this._getNode(index);
 
-    if (typeof cur === 'undefined') return;
+    if (typeof cur === 'undefined') {
+      throw new Error(`Unable to remove, index [${index}] out of range.`);
+    }
 
     if (typeof prev === 'undefined') {
       this._start = cur.next;

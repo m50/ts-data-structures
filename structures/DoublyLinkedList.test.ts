@@ -59,6 +59,22 @@ it('can delete at index', () => {
   expect(dll.count).toBe(2);
 })
 
+it('can delete at index 0 multiple times', () => {
+  const dll = new DoublyLinkedList(2);
+  expect(dll.count).toBe(1);
+  dll.add(5);
+  expect(dll.count).toBe(2);
+  dll.add(6);
+  expect(dll.count).toBe(3);
+  expect(dll.get(0)).toBe(2);
+  dll.removeAt(0);
+  expect(dll.get(0)).toBe(5);
+  expect(dll.count).toBe(2);
+  dll.removeAt(0);
+  expect(dll.get(0)).toBe(6);
+  expect(dll.count).toBe(1);
+})
+
 it('can delete a value', () => {
   const dll = new DoublyLinkedList(2);
   dll.add(5);
@@ -74,7 +90,7 @@ it('can delete last value', () => {
   dll.add(5);
   expect(dll.get(1)).toBe(5);
   dll.removeLast();
-  expect(dll.get(1)).toBe(undefined);
+  expect(() => dll.get(1)).toThrow();
 })
 
 it('can iterate', () => {

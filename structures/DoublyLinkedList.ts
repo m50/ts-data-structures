@@ -29,6 +29,7 @@ export class DoublyLinkedList<T> {
   }
 
   contains(val: T) {
+    this.rewind();
     var cur = this.next();
     while (typeof cur !== 'undefined') {
       if (cur === val) {
@@ -41,7 +42,7 @@ export class DoublyLinkedList<T> {
     return false;
   }
 
-  next(): T|undefined {
+  next(): T | undefined {
     if (typeof this._iterator == 'undefined') {
       this.rewind();
       return;
@@ -61,11 +62,11 @@ export class DoublyLinkedList<T> {
     return ret;
   }
 
-  get(index: number): T | undefined {
-    return this._getNode(index)?.value;
+  get(index: number): T {
+    return this._getNode(index).value;
   }
 
-  at(index: number): T | undefined {
+  at(index: number): T {
     return this.get(index);
   }
 
@@ -121,13 +122,14 @@ export class DoublyLinkedList<T> {
   }
 
   removeAt(index: number): void {
-    let cur = this._getNode(index);
-    let prev = cur?.prev;
-
-    if (typeof cur === 'undefined') return;
+    const cur = this._getNode(index);
+    const prev = cur?.prev;
 
     if (typeof prev === 'undefined') {
       this._start = cur.next;
+      if (typeof this._start !== 'undefined') {
+        this._start.prev = undefined;
+      }
     } else {
       prev.next = cur.next;
     }
@@ -175,14 +177,21 @@ export class DoublyLinkedList<T> {
     return ret;
   }
 
-  private _getNode(index: number): LL_Node<T> | undefined {
+  private _getNode(index: number): LL_Node<T> {
     this.rewind();
-    if (index < 0) return;
-    let cur = this._nextNode();
-    if (typeof cur === 'undefined') return;
+    if (index < 0) {
+      throw new Error(`Index [${index}] out of range.`);
+    }
     let idx = 0;
+    let cur = this._nextNode();
+    if (typeof cur === 'undefined') {
+      throw new Error(`Doubly Linked List is empty.`);
+    }
     while (idx < index) {
       cur = this._nextNode();
+      if (typeof cur === 'undefined') {
+        throw new Error(`Index [${index}] out of range.`);
+      }
       idx++;
     }
 
